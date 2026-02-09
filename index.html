@@ -1,206 +1,201 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GHOSTLINE — Core Mechanics</title>
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-    font-size: 15px;
-    line-height: 1.7;
-    color: #1a1a1a;
-    background: #fff;
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 48px 32px 80px;
-  }
-
-  h1 { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
-  .subtitle { color: #666; font-size: 14px; margin-bottom: 8px; }
-  .meta {
-    font-size: 13px; color: #999; margin-bottom: 48px;
-    padding-bottom: 20px; border-bottom: 2px solid #1a1a1a;
-  }
-
-  h2 {
-    font-size: 18px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 1px; margin-top: 40px; margin-bottom: 12px;
-    padding-bottom: 6px; border-bottom: 1px solid #ddd;
-  }
-
-  h3 {
-    font-size: 14px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 0.5px; color: #444; margin-top: 24px; margin-bottom: 8px;
-  }
-
-  p { margin-bottom: 10px; }
-  ul { margin: 8px 0 16px 20px; }
-  li { margin-bottom: 4px; }
-  li strong { font-weight: 600; }
-
-  table { width: 100%; border-collapse: collapse; margin: 12px 0 20px; font-size: 14px; }
-  th {
-    text-align: left; font-size: 12px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 0.5px; padding: 8px 10px; border-bottom: 2px solid #1a1a1a; color: #444;
-  }
-  td { padding: 7px 10px; border-bottom: 1px solid #eee; vertical-align: top; }
-
-  .note {
-    background: #f7f7f7; border-left: 3px solid #999;
-    padding: 12px 16px; margin: 16px 0; font-size: 14px; color: #555; font-style: italic;
-  }
-
-  .tagline {
-    text-align: center; margin-top: 48px; padding-top: 20px;
-    border-top: 2px solid #1a1a1a; font-style: italic; color: #666; font-size: 14px;
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concept Joc - Train Survival Roguelike</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background-color: #121212;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #1e1e1e;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        h1 {
+            color: #ff9800;
+            text-align: center;
+            border-bottom: 2px solid #ff9800;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        h2 {
+            color: #4fc3f7;
+            border-left: 5px solid #4fc3f7;
+            padding-left: 10px;
+            margin-top: 40px;
+        }
+        h3 {
+            color: #ffcc80;
+            margin-top: 25px;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        ul {
+            list-style-type: square;
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .highlight {
+            background-color: #333;
+            padding: 2px 5px;
+            border-radius: 4px;
+            color: #fff;
+            font-weight: bold;
+        }
+        .note {
+            font-style: italic;
+            color: #888;
+            font-size: 0.9em;
+            border-left: 3px solid #666;
+            padding-left: 10px;
+            margin: 10px 0;
+        }
+        .role-box {
+            background-color: #2c2c2c;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #444;
+        }
+    </style>
 </head>
 <body>
 
-<h1>GHOSTLINE</h1>
-<p class="subtitle">Core Mechanics Overview</p>
+<div class="container">
+    <h1>Concept Joc: Train Survival Roguelike</h1>
 
-<h2>1. Core Loop</h2>
-<p>Jocul alternează între două faze care creează un ritm constant de tensiune și recompensă.</p>
+    <p>Un joc cooperativ (Co-op) care combina elemente de FPS, Survival si Roguelike, centrat pe mentenanta si apararea unui tren in miscare printr-o lume post-apocaliptica.</p>
 
-<h3>Ride Phase (pe tren, în mișcare)</h3>
-<ul>
-  <li>Apără trenul de horde care atacă din toate direcțiile</li>
-  <li>Repară vagoane, alimentează furnalul, craftează resurse</li>
-  <li>Evenimente random: incendii, blackout-uri de la fulgere, fog înghețat, șine rupte care necesită oprire și reparație din exterior</li>
-</ul>
+    <h2>CORE LOOP (Bucla Principala)</h2>
+    <p>Jocul alterneaza intre doua faze distincte care creeaza un ritm constant de tensiune si recompensa.</p>
 
-<h3>Stop Phase (stații, off-train)</h3>
-<ul>
-  <li>Explorezi locații procedurale pentru loot: arme, mâncare, materiale de crafting</li>
-  <li>Cu cât stai mai mult = inamici mai mulți și mai puternici (soft-timer)</li>
-  <li>Jucătorii nu se pot reține mult timp — presiunea crește constant</li>
-</ul>
+    <h3>1. RIDE PHASE (Pe tren, in miscare)</h3>
+    <ul>
+        <li><strong>Apararea trenului:</strong> Jucatorii resping hoardele de inamici care ataca din toate directiile.</li>
+        <li><strong>Mentenanta activa:</strong> Repararea vagoanelor, alimentarea furnalului si craftarea resurselor esentiale.</li>
+        <li><strong>Evenimente dinamice:</strong> Incendii care necesita oprirea trenului, sine rupte ce trebuie reparate din exterior, "Blackout" (pana de curent) unde se folosesc doar lanternele, ceata inghetata care scade temperatura brusc si dubleaza consumul de resurse.</li>
+    </ul>
 
-<h2>2. Train Management</h2>
-<p>Trenul = bază mobilă. Control manual complet: jucătorii decid când pornesc și când opresc. Viteza mai mare consumă mai mult cărbune — trebuie menținut un balans între viteza care permite eschivarea inamicilor și conservarea resurselor. Când staționezi, apar mai mulți enemies, ceea ce te obligă mereu să te grăbești.</p>
+    <h3>2. STOP PHASE (Statii, Off-train)</h3>
+    <ul>
+        <li><strong>Explorare:</strong> Jucatorii exploreaza locatii generate procedural pentru a gasi loot (arme, mancare, materiale de crafting).</li>
+        <li><strong>Mecanica Soft-Timer:</strong> Cu cat echipa stationeaza mai mult, cu atat apar inamici mai multi si mai puternici. Jucatorii nu pot ramane mult timp in aceeasi locatie.</li>
+    </ul>
 
-<h3>Roluri emergente (co-op, fără clase fixe)</h3>
-<p>Echipa se organizează organic în funcție de situație:</p>
-<ul>
-  <li><strong>Mecanicul:</strong> Conduce locomotiva, alimentează furnalul cu resurse pentru a menține viteza</li>
-  <li><strong>Sentinela:</strong> Trage în inamici de pe acoperiș, ferestre sau platforme montate</li>
-  <li><strong>Tehnicianul:</strong> Repară ferestre sparte, uși rupte și sisteme avariate (puncte de intrare inamici)</li>
-  <li><strong>Crafterul:</strong> Folosește bancul de lucru din vagon pentru muniție, medkit-uri, detectoare</li>
-</ul>
+    <h2>TRAIN MANAGEMENT</h2>
+    <p>Trenul este baza mobila. Jucatorii au control manual complet: decid cand pornesc, cand opresc si cu ce viteza se deplaseaza.</p>
+    <div class="note">Balanta Viteza vs. Resurse: O viteza mare permite eschivarea inamicilor, dar consuma carbune rapid. Opririle dese atrag mai multi inamici.</div>
 
-<h3>Sistemul de vagoane</h3>
-<ul>
-  <li><strong>Vagoane specializate:</strong> locomotivă, vagon de crafting, vagon radio, vagon de depozitare, vagon cu paturi (regenerare HP accelerată)</li>
-  <li><strong>Vagoane bonus:</strong> descoperite în stații, pot fi atașate trenului</li>
-  <li>Tipuri noi de vagoane se pot adăuga pe parcursul dezvoltării</li>
-</ul>
+    <h3>Roluri Emergente (Fara clase fixe)</h3>
+    <p>Echipa se organizeaza organic in functie de situatie:</p>
+    
+    <div class="role-box">
+        <strong>🔧 Mecanicul:</strong> Conduce locomotiva si alimenteaza furnalul pentru a mentine viteza optima.
+    </div>
+    <div class="role-box">
+        <strong>👁️ Sentinela:</strong> Trage in inamici de pe acoperis, ferestre sau platforme montate.
+    </div>
+    <div class="role-box">
+        <strong>🔨 Tehnicianul:</strong> Repara ferestrele sparte, usile rupte si sistemele avariate (punctele de intrare ale inamicilor).
+    </div>
+    <div class="role-box">
+        <strong>⚙️ Crafterul:</strong> Foloseste bancul de lucru pentru a produce munitie, truse medicale si detectoare.
+    </div>
 
-<h2>3. Combat</h2>
-<p>First-person shooter cu elemente de bullet hell defensiv.</p>
+    <h3>Sistemul de Vagoane</h3>
+    <ul>
+        <li><strong>Vagoane standard:</strong> Locomotiva, Vagon de Crafting, Vagon Radio, Vagon de Depozitare.</li>
+        <li><strong>Vagon Medical:</strong> Ofera regenerare accelerata a vietii (HP).</li>
+        <li><strong>Vagoane Bonus:</strong> Pot fi descoperite in statii si atasate la tren pentru beneficii extra.</li>
+    </ul>
 
-<h3>Horde Attacks</h3>
-<ul>
-  <li>Creaturi atacă din toate direcțiile: stânga, dreapta, față, spate, sus</li>
-  <li>Forțează repoziționare constantă între vagoane</li>
-  <li>Escaladare progresivă: inamici mai rapizi, mai puternici, unii zburători</li>
-</ul>
+    <h2>COMBAT</h2>
+    <p>Stil First-Person Shooter (FPS) cu elemente de "Bullet Hell" defensiv.</p>
+    
+    <h3>Horde Attacks</h3>
+    <ul>
+        <li>Creaturile ataca din toate directiile: stanga, dreapta, fata, spate, sus.</li>
+        <li>Forteaza repozitionarea constanta a jucatorilor intre vagoane.</li>
+        <li>Escaladare progresiva: inamici mai rapizi, mai puternici si unitati zburatoare.</li>
+    </ul>
 
-<h3>Tipuri de inamici</h3>
-<ul>
-  <li><strong>Standard:</strong> Aleargă pe lângă tren, încearcă să urce</li>
-  <li><strong>Special:</strong> Abilități unice (explozivi, blindați, se agață de acoperiș)</li>
-  <li><strong>Mini-Boss:</strong> Apare la stații periculoase sau după opriri lungi</li>
-</ul>
+    <h3>Tipuri de Inamici</h3>
+    <ul>
+        <li><strong>Standard:</strong> Alearga pe langa tren si incearca sa urce la bord.</li>
+        <li><strong>Special:</strong> Au abilitati unice (explozivi, blindati, cataratori care se agata de acoperis).</li>
+        <li><strong>Mini-Boss:</strong> Apar la statiile periculoase sau dupa opriri prea lungi.</li>
+    </ul>
 
-<h2>4. Survival Systems</h2>
+    <h2>SURVIVAL SYSTEMS</h2>
+    <ul>
+        <li><strong>Foame:</strong> Mancarea se gaseste in ferme, orase sau statii. Foamea ne gestionata scade progresiv statisticile jucatorului.</li>
+        <li><strong>Temperatura:</strong> Frig extrem in afara trenului (mai ales noaptea). Interiorul ofera protectie doar daca furnalul este alimentat.</li>
+        <li><strong>Crafting:</strong> Bancul de lucru permite crearea de munitie, kituri medicale, detectoare de radiatii si capcane. Materialele se gasesc exclusiv in statii (risc mare = materiale rare).</li>
+    </ul>
 
-<h3>Foame</h3>
-<ul>
-  <li>Mâncare găsită în ferme, orașe, stații</li>
-  <li>Foamea scade stats-urile progresiv dacă nu e gestionată</li>
-</ul>
+    <h2>PROCEDURAL GENERATION</h2>
+    <p>Fiecare sesiune (run) este unica pentru a incuraja rejucabilitatea.</p>
+    
+    <h3>Rute si Statii</h3>
+    <ul>
+        <li>Traseu generat aleatoriu cu ramificatii (alegeri tip Roguelike).</li>
+        <li>Tipuri variate de statii: Oras abandonat, Depozit militar, Spital, Ferma, Biserica, Mina.</li>
+        <li>Fiecare tip de statie are loot specific, pericole si timeri diferiti.</li>
+    </ul>
 
-<h3>Temperatură</h3>
-<ul>
-  <li>Frig extrem în afara trenului, mai ales noaptea</li>
-  <li>Interiorul trenului oferă protecție (dacă furnalul e alimentat)</li>
-</ul>
+    <h3>Pericole de Mediu</h3>
+    <ul>
+        <li>Zone cu radiatii (necesita detectoare craftate).</li>
+        <li>Ceata densa (vizibilitate zero, creaturi silentioase).</li>
+    </ul>
 
-<h3>Crafting</h3>
-<ul>
-  <li><strong>Bancul de lucru:</strong> muniție, kituri medicale, detectoare de radiații, trap-uri</li>
-  <li><strong>Materiale:</strong> găsite exclusiv prin loot în stații</li>
-  <li><strong>Risk/Reward:</strong> materiale rare = stații mai periculoase</li>
-</ul>
+    <h2>RANDOM EVENTS</h2>
+    <p>Evenimente neprevazute care sparg rutina si forteaza adaptarea rapida.</p>
 
-<h2>5. Procedural Generation</h2>
-<p>Fiecare run să fie cât de cât unic, ca jucătorii să dorească să rejoace.</p>
+    <h3>Pe Tren (In miscare)</h3>
+    <ul>
+        <li><strong>Blackout:</strong> Cade sistemul electric, intuneric total, jucatorii depind de lanterne.</li>
+        <li><strong>Incendiu:</strong> Necesita stingerea focului sau detasarea de urgenta a vagonului afectat.</li>
+    </ul>
 
-<h3>Rute și stații</h3>
-<p>Traseul e generat aleatoriu cu ramificații (alegeri roguelike). Fiecare tip de stație are loot, pericole și timeri diferiți.</p>
+    <h3>Pe Sine</h3>
+    <ul>
+        <li><strong>Sine rupte:</strong> Oprire fortata si reparatie manuala sub asediul inamicilor.</li>
+        <li><strong>Derailment Scare:</strong> Evenimente tip QTE (Quick Time Event) sau minigame-uri de urgenta la locomotiva.</li>
+    </ul>
 
-<table>
-  <thead>
-    <tr><th>Locație</th><th>Loot</th><th>Pericol</th><th>Timer</th></tr>
-  </thead>
-  <tbody>
-    <tr><td><strong>Oraș abandonat</strong></td><td>Loot abundent, magazine</td><td>Horde trigger la zgomot</td><td>4 min</td></tr>
-    <tr><td><strong>Depozit militar</strong></td><td>Arme rare, muniție</td><td>Capcane, mini-boss</td><td>3 min</td></tr>
-    <tr><td><strong>Spital</strong></td><td>Medkit-uri, buff-uri HP</td><td>Creaturi speciale indoor</td><td>3.5 min</td></tr>
-    <tr><td><strong>Gară veche</strong></td><td>Vagoane bonus</td><td>Ambuscadă mare</td><td>5 min</td></tr>
-    <tr><td><strong>Fermă izolată</strong></td><td>Mâncare</td><td>Puține dar puternice</td><td>2 min</td></tr>
-    <tr><td><strong>Biserica</strong></td><td>Safe room / checkpoint</td><td>Nimic... sau tot?</td><td>2 min</td></tr>
-    <tr><td><strong>Mină</strong></td><td>Resurse crafting</td><td>Întuneric total, claustrofobic</td><td>4 min</td></tr>
-  </tbody>
-</table>
+    <h2>ROGUELIKE PROGRESSION</h2>
+    <p>Fiecare run este o sesiune completa cu Permadeath (moarte permanenta).</p>
 
-<h3>Pericole de mediu</h3>
-<ul>
-  <li><strong>Zone cu radiații:</strong> necesită detectoare craftuite</li>
-  <li><strong>Ceață densă:</strong> vizibilitate zero, creaturi silent</li>
-</ul>
+    <h3>In-Run (In timpul sesiunii)</h3>
+    <ul>
+        <li>Carti de Buff la alegerea jucatorilor intre statii.</li>
+        <li>Alegeri strategice de ruta: traseu sigur dar cu resurse putine vs. traseu periculos cu loot rar.</li>
+        <li>Upgrade-uri de vagoane gasite si atasate.</li>
+    </ul>
 
-<h2>6. Random Events</h2>
-<p>Evenimente neprevăzute care sparg rutina și forțează adaptare rapidă.</p>
-
-<h3>Pe tren (în mișcare)</h3>
-<ul>
-  <li><strong>Blackout:</strong> Electricitatea pică din cauza fulgerilor — întuneric total, doar lanterne</li>
-  <li><strong>Incendiu în vagon:</strong> Stinge focul sau detașează vagonul (pierdere permanentă)</li>
-  <li><strong>Fog înghețat:</strong> Temperatura scade brusc, furnalul consumă dublu, damage de frig accelerat în exterior</li>
-  <li><strong>Anomalii radio:</strong> Interferențe, coordonate false, dezorientare</li>
-</ul>
-
-<h3>Pe șine</h3>
-<ul>
-  <li><strong>Șine rupte:</strong> Oprire forțată, reparație manuală din exterior sub atac</li>
-  <li><strong>Derailment scare:</strong> QTE / minigame de urgență pe locomotivă</li>
-</ul>
-
-<div class="note">
-  Ideea e să adăugăm cât mai multe minigame-uri, dar trebuie testate în alpha pentru a decide ce funcționează și ce se mai poate adăuga.
+    <h3>Meta-Progression (Intre sesiuni)</h3>
+    <ul>
+        <li>Leaderboards globale.</li>
+        <li>Customizari cosmetice deblocabile (daca jocul are succes).</li>
+    </ul>
 </div>
-
-<h2>7. Roguelike Progression</h2>
-<p>Fiecare run e o sesiune completă cu permadeath.</p>
-
-<h3>In-Run</h3>
-<ul>
-  <li><strong>Buff cards</strong> la alegerea jucătorilor între stații (Risk of Rain style)</li>
-  <li><strong>Alegeri de rută:</strong> traseu sigur dar slab vs. traseu periculos dar cu loot rar</li>
-  <li><strong>Upgrades de vagoane</strong> găsite și atașate pe parcurs</li>
-</ul>
-
-<h3>Meta-Progression (între run-uri)</h3>
-<ul>
-  <li><strong>Leaderboards globale</strong> — neapărat de implementat</li>
-  <li><strong>Customizări</strong> — ulterior, dacă jocul se vinde bine</li>
-</ul>
 
 </body>
 </html>
